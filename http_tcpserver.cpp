@@ -40,8 +40,8 @@ namespace http
     if (startServer() != 0)
     {
       std::ostringstream ss;
-      ss << "Failed to start server with PORT: " << ntohs(m_socketAddress.sin_port);
-      log(ss.str());
+      ss << "Failed to start server with PORT: " << ntohs(m_socketAddress.sin_port) << "\n";
+      exitWithError(ss.str());
     }
   } // TcpServer::TcpServer
 
@@ -54,20 +54,20 @@ namespace http
   {
     if (WSAStartup(MAKEWORD(2, 0), &m_wsaData) != 0)
     {
-      exitWithError("WSAStartup failed");
+      exitWithError("WSAStartup failed.");
     }
 
     m_socket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (m_socket == INVALID_SOCKET)
     {
-      exitWithError("Cannot create socket");
+      exitWithError("Cannot create socket.");
       return 1;
     }
 
     if (bind(m_socket, (sockaddr*)&m_socketAddress, m_socketAddress_len) < 0)
     {
-      exitWithError("Cannot connect socket to address");
+      exitWithError("Cannot connect socket to address.");
       return 1;
     }
 
@@ -86,17 +86,17 @@ namespace http
   {
     if (listen(m_socket, 20) < 0)
     {
-      exitWithError("Socket listen failed");
+      exitWithError("Socket listen failed.");
     }
 
     std::ostringstream ss;
-    ss << "\n*** Listening on ADDRESS: " << inet_ntoa(m_socketAddress.sin_addr) << " PORT: " << ntohs(m_socketAddress.sin_port) << " ***\n\n";
+    ss << "\n*** Listening on ADDRESS: " << inet_ntoa(m_socketAddress.sin_addr) << " PORT: " << ntohs(m_socketAddress.sin_port) << " ***\n";
     log(ss.str());
 
     int bytesReceived;
     while (true)
     {
-      log("===== Waiting for a new connection =====\n\n\n");
+      log("===== Waiting for a new connection =====\n\n");
       acceptConnection(m_new_socket);
 
       char buffer[BUFFER_SIZE] = { 0 };
@@ -104,11 +104,11 @@ namespace http
 
       if (bytesReceived < 0)
       {
-        exitWithError("Failed to receive bytes from client socket connection");
+        exitWithError("Failed to receive bytes from client socket connection.");
       }
 
       std::ostringstream ss;
-      ss << "----- Received Request from client -----\n\n\n";
+      ss << "----- Received Request from client -----\n\n";
       log(ss.str());
 
       sendResponse();
@@ -131,12 +131,17 @@ namespace http
 
   std::string TcpServer::buildResponse()
   {
-    std::string htmlFile = "<!DOCTYPE html><html lang=\"en\"><body><h1> HOME </h1><p> Hello from your Server :) </p></body></html>";
+    // std::string htmlFile = "<!DOCTYPE html><html lang=\"en\"><body><h1> HOME </h1><p> Hello from your Server :) </p><p>This is some more text in the response body</p></body></html>";
 
-    std::ostringstream ss;
-    ss << "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " << htmlFile.size() << "\n\n" << htmlFile;
+    // std::ostringstream ss;
+    // ss << "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: " << htmlFile.size() << "\n\n" << htmlFile;
 
-    return ss.str();
+    // return ss.str();
+    
+    double response;
+    response = 123098128888;
+
+    return response;
   } // TcpServer::buildResponse
 
   void TcpServer::sendResponse()
@@ -162,7 +167,7 @@ namespace http
     }
     else
     {
-      log("Error sending response to client.");
+      log("Error sending response to client.\n");
     }
   } // TcpServer::sendResponse
 } // namespace http
