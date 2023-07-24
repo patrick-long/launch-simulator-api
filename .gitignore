@@ -1,3 +1,6 @@
 server.exe
+server.o
+http_tcpserver.o
+
 .vscode
 output
