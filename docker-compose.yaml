@@ -1,0 +1,10 @@
+version: "1.0"
+services:
+  launch-simulator-api:
+    image: gcc:4.9
+    build: .
+    volumes:
+      - .:/launch-simulator-api
+    ports:
+      - "8080:8080"
+    command: "./build/LaunchSimulatorLinux"
