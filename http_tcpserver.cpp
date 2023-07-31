@@ -236,8 +236,6 @@ namespace http
   {
     ostringstream htmlFile;
 
-    cout << "Route name in buildHtmlFile(): " << routeName << endl;
-
     htmlFile
       << "<!DOCTYPE html><html lang=\"en\"><body><h1> Launch Simulator API "
       << routeName
