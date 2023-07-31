@@ -16,7 +16,7 @@ git clone https://github.com/patrick-long/launch-simulator-api.git
 
 ### Building and Running on Windows
 
-1. Run the server.sh script
+1. Navigate to the project folder `launch-simulator-api`, and run the server.sh script:
 
 ```sh
 ./server.sh
@@ -27,7 +27,7 @@ git clone https://github.com/patrick-long/launch-simulator-api.git
 ### Building and Running Docker container
 
 1. Make sure that Docker is fully installed on your system and running
-2. Navigate to the project folder `launch-simulaor-api/` and build the Docker container:
+2. Navigate to the project folder `launch-simulator-api/` and build the Docker container:
 
 ```sh
 docker-compose build
